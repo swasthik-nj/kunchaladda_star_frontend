@@ -17,7 +17,16 @@ export default function Members() {
         throw new Error("Failed to fetch members");
       }
       const data = await response.json();
-      setMembers(data.data.users || []);
+      
+
+      const users = (data.data.users || [])
+        .map(user => ({
+          ...user,
+          age: calculateAge(user.dob)
+        }))
+        .sort((a, b) => b.age - a.age); 
+      
+      setMembers(users);
       setError(null);
     } catch (err) {
       setError(err.message);
@@ -25,6 +34,23 @@ export default function Members() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const calculateAge = (dob) => {
+    if (!dob) return 0;
+    const birthDate = new Date(dob);
+    const today = new Date();
+    
+  
+    let age = today.getFullYear() - birthDate.getFullYear();
+    
+    
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    
+    return age;
   };
 
   if (loading) {
@@ -65,6 +91,7 @@ export default function Members() {
               <h1 className="text-2xl font-semibold text-center capitalize">{member.fullname}</h1>
               <div className="pt-4 text-sm">
                 <p>Email: {member.email}</p>
+                <p>Age: {member.age} years</p>
                 <p>DOB: {new Date(member.dob).toLocaleDateString()}</p>
                 <p>Verified: {member.isEmailVarified ? "Yes" : "No"}</p>
               </div>
