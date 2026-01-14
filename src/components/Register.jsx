@@ -144,7 +144,6 @@ export default function Register() {
 
       // Store user data
       localStorage.setItem("user", JSON.stringify(response.data.data.user));
-      localStorage.setItem("accessToken", response.data.data.accessToken);
 
       // Redirect to home page
       navigate("/login");

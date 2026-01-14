@@ -10,11 +10,27 @@ export default function Nav() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if user is logged in
+   
     const userData = localStorage.getItem('user');
     if (userData) {
-      setUser(JSON.parse(userData));
+      const parsedUser = JSON.parse(userData);
+      setUser(parsedUser);
+      console.log('User loaded from localStorage:', parsedUser);
+      console.log('Avatar URL:', parsedUser.avatar?.url || parsedUser.avatar);
     }
+
+    // Listen for storage changes (when avatar is updated in ProfilePopup)
+    const handleStorageChange = (e) => {
+      if (e.key === 'user' && e.newValue) {
+        const updatedUser = JSON.parse(e.newValue);
+        setUser(updatedUser);
+        console.log('User updated from storage event:', updatedUser);
+        console.log('Updated Avatar URL:', updatedUser.avatar?.url || updatedUser.avatar);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
   const toggleMenu = () => {
@@ -31,7 +47,12 @@ export default function Nav() {
   };
 
   const handleProfileUpdate = (updatedUser) => {
+    console.log('Profile updated in Nav:', updatedUser);
+    console.log('New avatar URL:', updatedUser.avatar?.url || updatedUser.avatar);
+    localStorage.setItem('user', JSON.stringify(updatedUser));
     setUser(updatedUser);
+    // Force re-render with new user data
+    setUser(prev => ({...updatedUser}));
   };
 
   return (
@@ -79,8 +100,16 @@ export default function Nav() {
                   className='flex items-center gap-2 hover:opacity-80 transition'
                 >
                   <img
-                    src={user.avatar.url || 'https://placehold.co/40x40'}
+                    key={user?.avatar?.url}
+                    src={typeof user.avatar === 'string' ? user.avatar : (user.avatar?.url || 'https://placehold.co/40x40')}
                     alt={user.fullname}
+                    onError={(e) => {
+                      console.log('Image failed to load:', e.target.src);
+                      e.target.src = 'https://placehold.co/40x40';
+                    }}
+                    onLoad={() => {
+                      console.log('Image loaded successfully:', typeof user.avatar === 'string' ? user.avatar : (user.avatar?.url || 'https://placehold.co/40x40'));
+                    }}
                     className='w-10 h-10 rounded-full object-cover border-2 border-yellow-400'
                   />
                   <span className='hidden md:block text-sm'>{user.fullname}</span>
@@ -194,8 +223,16 @@ export default function Nav() {
               <>
                 <div className='px-4 py-3 flex items-center gap-3'>
                   <img
-                    src={user.avatar?.url || 'https://placehold.co/40x40'}
+                    key={user?.avatar?.url}
+                    src={typeof user.avatar === 'string' ? user.avatar : (user.avatar?.url || 'https://placehold.co/40x40')}
                     alt={user.fullname}
+                    onError={(e) => {
+                      console.log('Mobile image failed to load:', e.target.src);
+                      e.target.src = 'https://placehold.co/40x40';
+                    }}
+                    onLoad={() => {
+                      console.log('Mobile image loaded successfully:', typeof user.avatar === 'string' ? user.avatar : (user.avatar?.url || 'https://placehold.co/40x40'));
+                    }}
                     className='w-10 h-10 rounded-full object-cover border-2 border-yellow-400'
                   />
                   <span className='text-sm font-medium'>{user.fullname}</span>
@@ -236,7 +273,6 @@ export default function Nav() {
         </div>
       </div>
 
-      {/* Profile Popup */}
       <ProfilePopup 
         user={user} 
         isOpen={showProfilePopup} 
