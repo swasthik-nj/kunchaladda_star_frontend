@@ -15,17 +15,15 @@ export default function Nav() {
     if (userData) {
       const parsedUser = JSON.parse(userData);
       setUser(parsedUser);
-      // console.log('User loaded from localStorage:', parsedUser);
-      // console.log('Avatar URL:', parsedUser.avatar?.url || parsedUser.avatar);
+      
     }
 
-    // Listen for storage changes (when avatar is updated in ProfilePopup)
+
     const handleStorageChange = (e) => {
       if (e.key === 'user' && e.newValue) {
         const updatedUser = JSON.parse(e.newValue);
         setUser(updatedUser);
-        // console.log('User updated from storage event:', updatedUser);
-        // console.log('Updated Avatar URL:', updatedUser.avatar?.url || updatedUser.avatar);
+        
       }
     };
 

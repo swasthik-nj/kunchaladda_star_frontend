@@ -12,7 +12,7 @@ export default function FeaturedMembers() {
   const fetchMembers = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:3001/api/v1/auth/all-users");
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/all-users`);
       if (!response.ok) {
         throw new Error("Failed to fetch members");
       }

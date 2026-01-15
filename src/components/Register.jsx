@@ -132,7 +132,7 @@ export default function Register() {
       }
 
       const response = await axios.post(
-        "http://localhost:3001/api/v1/auth/register",
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/register`,
         formPayload,
         {
           headers: {

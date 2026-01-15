@@ -55,7 +55,7 @@ export default function Gallery() {
   const fetchAllImages = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:3001/api/v1/gallery/all");
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/gallery/all`);
       setImages(response.data.data.images || []);
     } catch (err) {
       console.error("Error fetching images:", err);
@@ -97,7 +97,7 @@ export default function Gallery() {
             const { secure_url, public_id, width, height } = result.info;
 
             const response = await axios.post(
-              "http://localhost:3001/api/v1/gallery/upload",
+              `${import.meta.env.VITE_BACKEND_URL}/api/v1/gallery/upload`,
               {
                 cloudinaryUrl: secure_url,
                 cloudinaryPublicId: public_id,
@@ -133,7 +133,7 @@ export default function Gallery() {
     }
 
     try {
-      await axios.delete(`http://localhost:3001/api/v1/gallery/delete/${imageId}`, {
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/gallery/delete/${imageId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },

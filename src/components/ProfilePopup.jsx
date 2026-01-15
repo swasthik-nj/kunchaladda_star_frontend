@@ -50,7 +50,7 @@ export default function ProfilePopup({ user, isOpen, onClose, onProfileUpdate })
 			formData.append("avatar", selectedFile);
 
 			const response = await axios.post(
-				"http://localhost:3001/api/v1/auth/change-avatar",
+				`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/change-avatar`,
 				formData,
 				{
 					headers: {
