@@ -15,8 +15,8 @@ export default function Nav() {
     if (userData) {
       const parsedUser = JSON.parse(userData);
       setUser(parsedUser);
-      console.log('User loaded from localStorage:', parsedUser);
-      console.log('Avatar URL:', parsedUser.avatar?.url || parsedUser.avatar);
+      // console.log('User loaded from localStorage:', parsedUser);
+      // console.log('Avatar URL:', parsedUser.avatar?.url || parsedUser.avatar);
     }
 
     // Listen for storage changes (when avatar is updated in ProfilePopup)
@@ -24,8 +24,8 @@ export default function Nav() {
       if (e.key === 'user' && e.newValue) {
         const updatedUser = JSON.parse(e.newValue);
         setUser(updatedUser);
-        console.log('User updated from storage event:', updatedUser);
-        console.log('Updated Avatar URL:', updatedUser.avatar?.url || updatedUser.avatar);
+        // console.log('User updated from storage event:', updatedUser);
+        // console.log('Updated Avatar URL:', updatedUser.avatar?.url || updatedUser.avatar);
       }
     };
 
@@ -104,11 +104,11 @@ export default function Nav() {
                     src={typeof user.avatar === 'string' ? user.avatar : (user.avatar?.url || 'https://placehold.co/40x40')}
                     alt={user.fullname}
                     onError={(e) => {
-                      console.log('Image failed to load:', e.target.src);
+                      // console.log('Image failed to load:', e.target.src);
                       e.target.src = 'https://placehold.co/40x40';
                     }}
                     onLoad={() => {
-                      console.log('Image loaded successfully:', typeof user.avatar === 'string' ? user.avatar : (user.avatar?.url || 'https://placehold.co/40x40'));
+                      // console.log('Image loaded successfully:', typeof user.avatar === 'string' ? user.avatar : (user.avatar?.url || 'https://placehold.co/40x40'));
                     }}
                     className='w-10 h-10 rounded-full object-cover border-2 border-yellow-400'
                   />
@@ -227,11 +227,11 @@ export default function Nav() {
                     src={typeof user.avatar === 'string' ? user.avatar : (user.avatar?.url || 'https://placehold.co/40x40')}
                     alt={user.fullname}
                     onError={(e) => {
-                      console.log('Mobile image failed to load:', e.target.src);
+                      // console.log('Mobile image failed to load:', e.target.src);
                       e.target.src = 'https://placehold.co/40x40';
                     }}
                     onLoad={() => {
-                      console.log('Mobile image loaded successfully:', typeof user.avatar === 'string' ? user.avatar : (user.avatar?.url || 'https://placehold.co/40x40'));
+                      // console.log('Mobile image loaded successfully:', typeof user.avatar === 'string' ? user.avatar : (user.avatar?.url || 'https://placehold.co/40x40'));
                     }}
                     className='w-10 h-10 rounded-full object-cover border-2 border-yellow-400'
                   />

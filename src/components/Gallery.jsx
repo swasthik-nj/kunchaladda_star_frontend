@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FiTrash2, FiUploadCloud } from "react-icons/fi";
 import Footer from "./Footer";
+import Nav from "./Nav";
 
 const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
@@ -148,7 +149,8 @@ export default function Gallery() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
-      <div className="relative overflow-hidden">
+      <Nav />
+      <div className="relative overflow-hidden pt-20">
         <div className="absolute inset-0 opacity-60 bg-[radial-gradient(circle_at_20%_20%,#1e3a8a_0,#0f172a_35%,transparent_55%)]" aria-hidden />
         <div className="absolute inset-0 opacity-50 bg-[radial-gradient(circle_at_80%_0%,#7c3aed_0,#0f172a_35%,transparent_55%)]" aria-hidden />
 
