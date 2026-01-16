@@ -132,7 +132,7 @@ export default function Home() {
      
       <div class="max-w-[180vh] mx-auto p-8  z-10 ">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div class="relative grid grid-cols-30 grid-rows-30 h-[300px] md:h-[600px]">
+          <div class="relative grid grid-cols-30 grid-rows-30 h-[300px] md:h-[550px]">
             <div class="col-start-20 col-end-31 row-start-1 row-end-11">
               <img
                 src="https://images.unsplash.com/photo-1768311172651-9f0a3a1d4a22?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw1fHx8ZW58MHx8fHx8"

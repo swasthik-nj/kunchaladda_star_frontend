@@ -86,12 +86,12 @@ export default function FeaturedMembers() {
         key={member._id} 
         className="group relative bg-white/80 backdrop-blur-xl border border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[2.5rem] p-2 transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] hover:-translate-y-2 overflow-hidden"
       >
-        {/* Subtle decorative background blob */}
+        
         <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-100/50 rounded-full blur-3xl group-hover:bg-blue-200/60 transition-colors duration-500" />
         
         <div className="relative bg-white/50 rounded-[2.2rem] p-6 h-full border border-white/50 flex flex-col items-center">
           
-          {/* Avatar Section with Status Ring */}
+          
           <div className="relative mb-6">
             <div className={`absolute inset-0 rounded-full blur-md opacity-20 scale-110 ${member.isEmailVarified ? 'bg-emerald-500' : 'bg-orange-500'}`}></div>
             <img
@@ -108,7 +108,7 @@ export default function FeaturedMembers() {
             )}
           </div>
 
-          {/* Identity Section */}
+          
           <div className="text-center mb-6">
             <h1 className="text-xl font-bold text-slate-800 capitalize tracking-tight group-hover:text-blue-600 transition-colors">
               {member.fullname}
@@ -118,8 +118,8 @@ export default function FeaturedMembers() {
             </span>
           </div>
 
-          {/* Info Grid */}
-          <div className="w-full grid grid-cols-2 gap-2 pt-6 border-t border-slate-100/80">
+          
+          <div className="w-full grid grid-cols-2 gap-2 pt-3 border-t border-slate-100/80">
             <div className="flex flex-col">
               <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider">Age</span>
               <span className="text-sm font-semibold text-slate-700">{member.age} yrs</span>
@@ -136,10 +136,10 @@ export default function FeaturedMembers() {
             </div>
           </div>
 
-          {/* Action Button */}
-          <button className="mt-8 w-full py-3 bg-slate-900 text-white rounded-2xl text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-200 active:scale-95">
+
+          {/* <button className="mt-8 w-full py-3 bg-slate-900 text-white rounded-2xl text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-200 active:scale-95">
             View Details
-          </button>
+          </button> */}
         </div>
       </div>
     ))}
