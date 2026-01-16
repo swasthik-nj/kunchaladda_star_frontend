@@ -1,18 +1,27 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 // Popup to view profile details and change avatar
 export default function ProfilePopup({ user, isOpen, onClose, onProfileUpdate }) {
-	const safeAvatar = useMemo(() => user?.avatar?.url || "https://placehold.co/120x120", [user]);
-	const [previewImage, setPreviewImage] = useState(safeAvatar);
+	const [previewImage, setPreviewImage] = useState(null);
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const [success, setSuccess] = useState(null);
 
+	// Update preview when user or popup opens
+	useEffect(() => {
+		if (isOpen && user) {
+			const avatarUrl = user?.avatar?.url || user?.avatar || "https://placehold.co/120x120";
+			setPreviewImage(avatarUrl);
+			setSelectedFile(null);
+		}
+	}, [isOpen, user]);
+
 	const resetState = () => {
 		setSelectedFile(null);
-		setPreviewImage(safeAvatar);
+		const avatarUrl = user?.avatar?.url || user?.avatar || "https://placehold.co/120x120";
+		setPreviewImage(avatarUrl);
 		setError(null);
 		setSuccess(null);
 	};
@@ -62,9 +71,20 @@ export default function ProfilePopup({ user, isOpen, onClose, onProfileUpdate })
 
 			if (response?.data?.statusCode === 200) {
 				const updatedUser = response.data.data.user;
+				console.log('Avatar update response:', updatedUser);
+				
+				// Update localStorage immediately
 				localStorage.setItem("user", JSON.stringify(updatedUser));
+				
+				// Update preview to show new avatar
+				const newAvatarUrl = updatedUser.avatar?.url || updatedUser.avatar;
+				setPreviewImage(newAvatarUrl);
+				
 				setSuccess("Profile photo updated successfully");
+				
+				// Notify parent component with the new user data
 				if (onProfileUpdate) onProfileUpdate(updatedUser);
+				
 				setTimeout(() => {
 					resetState();
 					onClose();
@@ -102,9 +122,13 @@ export default function ProfilePopup({ user, isOpen, onClose, onProfileUpdate })
 				<div className="space-y-4 mb-6">
 					<div className="flex flex-col items-center mb-6">
 						<img
-							src={previewImage}
+							key={previewImage}
+							src={previewImage || "https://placehold.co/120x120"}
 							alt={user?.fullname}
 							className="w-24 h-24 rounded-full object-cover border-4 border-amber-700 mb-4"
+							onError={(e) => {
+								e.target.src = "https://placehold.co/120x120";
+							}}
 						/>
 						<div className="text-center">
 							<h3 className="text-lg font-semibold text-gray-800">{user?.fullname || "User"}</h3>

@@ -48,9 +48,8 @@ export default function Nav() {
     console.log('Profile updated in Nav:', updatedUser);
     console.log('New avatar URL:', updatedUser.avatar?.url || updatedUser.avatar);
     localStorage.setItem('user', JSON.stringify(updatedUser));
+    // Update state with the new user data to trigger re-render
     setUser(updatedUser);
-    // Force re-render with new user data
-    setUser(prev => ({...updatedUser}));
   };
 
   return (
