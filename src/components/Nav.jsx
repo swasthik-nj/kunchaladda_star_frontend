@@ -24,7 +24,7 @@ export default function Nav() {
 
   useEffect(() => {
     // Load user on component mount
-    console.log('🔍 Nav useEffect: Loading user from storage');
+    console.log('🔍   Nav useEffect: Loading user from storage');
     loadUserFromStorage();
 
     // Listen for storage changes (from other tabs)
