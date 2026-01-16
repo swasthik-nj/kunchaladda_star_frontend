@@ -71,22 +71,30 @@ export default function ProfilePopup({ user, isOpen, onClose, onProfileUpdate })
 
 			if (response?.data?.statusCode === 200) {
 				const updatedUser = response.data.data.user;
-				console.log('Avatar update response:', updatedUser);
+				console.log('✅ Avatar update response:', updatedUser);
+				console.log('✅ New avatar URL:', updatedUser.avatar?.url || updatedUser.avatar);
 				
 				// Update localStorage immediately
 				localStorage.setItem("user", JSON.stringify(updatedUser));
+				console.log('✅ Saved to localStorage');
 				
 				// Update preview to show new avatar
 				const newAvatarUrl = updatedUser.avatar?.url || updatedUser.avatar;
 				setPreviewImage(newAvatarUrl);
+				console.log('✅ Updated preview image');
 				
 				setSuccess("Profile photo updated successfully");
 				
 				// Dispatch custom event for same-tab updates (for components like Nav)
+				console.log('📢 Dispatching userUpdated event...');
 				window.dispatchEvent(new CustomEvent('userUpdated', { detail: { user: updatedUser } }));
+				console.log('✅ Event dispatched');
 				
 				// Notify parent component with the new user data
-				if (onProfileUpdate) onProfileUpdate(updatedUser);
+				if (onProfileUpdate) {
+					console.log('📞 Calling onProfileUpdate callback');
+					onProfileUpdate(updatedUser);
+				}
 				
 				setTimeout(() => {
 					resetState();

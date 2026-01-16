@@ -24,6 +24,7 @@ export default function Nav() {
 
   useEffect(() => {
     // Load user on component mount
+    console.log('🔍 Nav useEffect: Loading user from storage');
     loadUserFromStorage();
 
     // Listen for storage changes (from other tabs)
@@ -31,6 +32,7 @@ export default function Nav() {
       if (e.key === 'user' && e.newValue) {
         try {
           const updatedUser = JSON.parse(e.newValue);
+          console.log('📦 Storage event received:', updatedUser);
           setUser(updatedUser);
         } catch (error) {
           console.error('Error parsing updated user data:', error);
@@ -43,8 +45,10 @@ export default function Nav() {
     // Also listen for custom event (for same-tab updates)
     const handleUserUpdate = (e) => {
       if (e.detail && e.detail.user) {
-        console.log('User updated via custom event:', e.detail.user);
+        console.log('👂 Custom userUpdated event received:', e.detail.user);
+        console.log('👂 New avatar URL:', e.detail.user.avatar?.url || e.detail.user.avatar);
         setUser(e.detail.user);
+        console.log('✅ State updated with new user');
       }
     };
     window.addEventListener('userUpdated', handleUserUpdate);
@@ -127,15 +131,11 @@ export default function Nav() {
                   className='flex items-center gap-2 hover:opacity-80 transition'
                 >
                   <img
-                    key={user?.avatar?.url}
+                    key={`${user?.avatar?.url}-${Date.now()}`}
                     src={typeof user.avatar === 'string' ? user.avatar : (user.avatar?.url || 'https://placehold.co/40x40')}
                     alt={user.fullname}
                     onError={(e) => {
-                      // console.log('Image failed to load:', e.target.src);
                       e.target.src = 'https://placehold.co/40x40';
-                    }}
-                    onLoad={() => {
-                      // console.log('Image loaded successfully:', typeof user.avatar === 'string' ? user.avatar : (user.avatar?.url || 'https://placehold.co/40x40'));
                     }}
                     className='w-10 h-10 rounded-full object-cover border-2 border-yellow-400'
                   />
@@ -250,15 +250,11 @@ export default function Nav() {
               <>
                 <div className='px-4 py-3 flex items-center gap-3'>
                   <img
-                    key={user?.avatar?.url}
+                    key={`mobile-${user?.avatar?.url}-${Date.now()}`}
                     src={typeof user.avatar === 'string' ? user.avatar : (user.avatar?.url || 'https://placehold.co/40x40')}
                     alt={user.fullname}
                     onError={(e) => {
-                      // console.log('Mobile image failed to load:', e.target.src);
                       e.target.src = 'https://placehold.co/40x40';
-                    }}
-                    onLoad={() => {
-                      // console.log('Mobile image loaded successfully:', typeof user.avatar === 'string' ? user.avatar : (user.avatar?.url || 'https://placehold.co/40x40'));
                     }}
                     className='w-10 h-10 rounded-full object-cover border-2 border-yellow-400'
                   />
