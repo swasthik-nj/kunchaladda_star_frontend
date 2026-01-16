@@ -5,6 +5,7 @@ import './App.css'
 import Members from './components/Members'
 import Register from './components/Register'
 import Login from './components/Login'
+import VerifyEmail from './components/VerifyEmail'
 
 function App() {
   
@@ -17,6 +18,7 @@ function App() {
         <Route path='/members' element={<Members/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/verify-email' element={<VerifyEmail/>}/>
       </Routes>
     </BrowserRouter>
 

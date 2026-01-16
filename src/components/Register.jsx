@@ -13,6 +13,7 @@ export default function Register() {
   });
   const [photoPreview, setPhotoPreview] = useState(null);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState("");
   const navigate = useNavigate();
@@ -145,8 +146,20 @@ export default function Register() {
       // Store user data
       localStorage.setItem("user", JSON.stringify(response.data.data.user));
 
-      // Redirect to home page
-      navigate("/login");
+      // Show success message with email verification instructions
+      const responseMessage = response.data.message || "";
+      if (responseMessage.toLowerCase().includes('verify') || responseMessage.toLowerCase().includes('email')) {
+        setSuccess("Registration successful! Please check your email inbox (and spam folder) for a verification link. You must verify your email before logging in.");
+        // Don't auto-redirect, let user read the message
+        setTimeout(() => {
+          navigate("/login");
+        }, 8000); // 8 seconds to read the message
+      } else {
+        setSuccess(responseMessage);
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      }
     } catch (err) {
       const errorMessage =
         err.response?.data?.message || "Registration failed. Please try again.";
@@ -198,9 +211,9 @@ export default function Register() {
           {/* Error Message */}
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-red-600 text-sm flex items-center">
+              <div className="flex items-center">
                 <svg
-                  className="w-5 h-5 mr-2"
+                  className="w-5 h-5 text-red-500 mr-2"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -210,8 +223,33 @@ export default function Register() {
                     clipRule="evenodd"
                   />
                 </svg>
-                {error}
-              </p>
+                <p className="text-red-700 text-sm">{error}</p>
+              </div>
+            </div>
+          )}
+
+          {/* Success Message */}
+          {success && (
+            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <div className="flex items-start">
+                <svg
+                  className="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                <div className="flex-1">
+                  <p className="text-green-700 text-sm font-medium">{success}</p>
+                  <p className="text-green-600 text-xs mt-1">
+                    Redirecting to login in a few seconds...
+                  </p>
+                </div>
+              </div>
             </div>
           )}
 

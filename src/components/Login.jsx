@@ -9,6 +9,7 @@ export default function Login() {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resendingEmail, setResendingEmail] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -52,6 +53,32 @@ export default function Login() {
     }
   };
 
+  const handleResendVerification = async () => {
+    if (!formData.email) {
+      alert("Please enter your email address first");
+      return;
+    }
+
+    setResendingEmail(true);
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/resend-verification-email`,
+        { email: formData.email },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      alert("Verification email sent! Please check your inbox and spam folder.");
+    } catch (err) {
+      const errorMessage = err.response?.data?.message || "Failed to send verification email.";
+      alert(errorMessage);
+    } finally {
+      setResendingEmail(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-200 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -66,6 +93,16 @@ export default function Login() {
           {error && (
             <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
               <p className="text-red-600 text-sm">{error}</p>
+              {error.toLowerCase().includes('verify') && (
+                <button
+                  type="button"
+                  onClick={handleResendVerification}
+                  disabled={resendingEmail}
+                  className="mt-2 text-xs text-blue-600 hover:text-blue-700 underline disabled:opacity-50"
+                >
+                  {resendingEmail ? 'Sending...' : 'Resend Verification Email'}
+                </button>
+              )}
             </div>
           )}
 
