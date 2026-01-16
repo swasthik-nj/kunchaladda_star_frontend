@@ -77,7 +77,9 @@ export default function Gallery() {
     }
 
     const cloudinary = window.cloudinary;
-    cloudinary.openUploadWidget(
+    let uploadWidget;
+    
+    uploadWidget = cloudinary.createUploadWidget(
       {
         cloudName: CLOUD_NAME,
         uploadPreset: UPLOAD_PRESET, 
@@ -116,15 +118,22 @@ export default function Gallery() {
 
             setImages([response.data.data.image, ...images]);
             setError("");
+            
+            // Close/minimize the widget after successful upload
+            setTimeout(() => {
+              uploadWidget.close();
+            }, 1000);
           } catch (err) {
             console.error("Error saving image:", err);
-            setError("Failed to save image to gallery.");
+            setError("Failed to save image to gallery.plss register and login again.");
           } finally {
             setUploading(false);
           }
         }
       }
     );
+    
+    uploadWidget.open();
   };
 
   const handleDeleteImage = async (imageId) => {
