@@ -82,6 +82,9 @@ export default function ProfilePopup({ user, isOpen, onClose, onProfileUpdate })
 				
 				setSuccess("Profile photo updated successfully");
 				
+				// Dispatch custom event for same-tab updates (for components like Nav)
+				window.dispatchEvent(new CustomEvent('userUpdated', { detail: { user: updatedUser } }));
+				
 				// Notify parent component with the new user data
 				if (onProfileUpdate) onProfileUpdate(updatedUser);
 				

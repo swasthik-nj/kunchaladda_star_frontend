@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProfilePopup from './ProfilePopup';
 
@@ -9,26 +9,50 @@ export default function Nav() {
   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-   
+  // Function to load user from localStorage
+  const loadUserFromStorage = useCallback(() => {
     const userData = localStorage.getItem('user');
     if (userData) {
-      const parsedUser = JSON.parse(userData);
-      setUser(parsedUser);
-      
+      try {
+        const parsedUser = JSON.parse(userData);
+        setUser(parsedUser);
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+      }
     }
+  }, []);
 
+  useEffect(() => {
+    // Load user on component mount
+    loadUserFromStorage();
 
+    // Listen for storage changes (from other tabs)
     const handleStorageChange = (e) => {
       if (e.key === 'user' && e.newValue) {
-        const updatedUser = JSON.parse(e.newValue);
-        setUser(updatedUser);
-        
+        try {
+          const updatedUser = JSON.parse(e.newValue);
+          setUser(updatedUser);
+        } catch (error) {
+          console.error('Error parsing updated user data:', error);
+        }
       }
     };
 
     window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    
+    // Also listen for custom event (for same-tab updates)
+    const handleUserUpdate = (e) => {
+      if (e.detail && e.detail.user) {
+        console.log('User updated via custom event:', e.detail.user);
+        setUser(e.detail.user);
+      }
+    };
+    window.addEventListener('userUpdated', handleUserUpdate);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('userUpdated', handleUserUpdate);
+    };
   }, []);
 
   const toggleMenu = () => {
@@ -47,9 +71,15 @@ export default function Nav() {
   const handleProfileUpdate = (updatedUser) => {
     console.log('Profile updated in Nav:', updatedUser);
     console.log('New avatar URL:', updatedUser.avatar?.url || updatedUser.avatar);
+    
+    // Update localStorage
     localStorage.setItem('user', JSON.stringify(updatedUser));
-    // Update state with the new user data to trigger re-render
+    
+    // Update state directly
     setUser(updatedUser);
+    
+    // Dispatch custom event for same-tab updates
+    window.dispatchEvent(new CustomEvent('userUpdated', { detail: { user: updatedUser } }));
   };
 
   return (
