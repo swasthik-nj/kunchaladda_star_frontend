@@ -93,7 +93,7 @@ export default function Members() {
         
         <div className="h-20 w-full bg-gradient-to-r from-emerald-400 to-blue-500 opacity-80 group-hover:opacity-100 transition-opacity" />
 
-        <div className="px-6 pb-8 flex flex-col items-center">
+        <div className="px-6 pb-4 flex flex-col items-center">
           <div className="relative -mt-10 mb-4">
             <img
               src={member.avatar?.url || "https://placehold.co/200x200"}
@@ -119,7 +119,7 @@ export default function Members() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 w-full mt-6 py-4 border-y border-slate-50">
+          <div className="grid grid-cols-2 w-full mt-2 py-2 border-y border-slate-50">
             <div className="text-center border-r border-slate-50">
               <span className="block text-xs text-slate-400 font-medium">Age</span>
               <span className="text-sm font-bold text-slate-700">{member.age}</span>
@@ -132,7 +132,7 @@ export default function Members() {
             </div>
           </div>
 
-          <div className="w-full mt-4 space-y-2">
+          <div className="w-full mt-2 space-y-2">
             <div className="flex items-center gap-3 text-slate-500 group/item cursor-pointer">
               <div className="p-2 bg-slate-50 rounded-lg group-hover/item:bg-blue-50 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-slate-400 group-hover/item:text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -152,10 +152,10 @@ export default function Members() {
             </div>
           </div>
 
-          {/* Profile CTA */}
+          {/* Profile CTA
           <button className="mt-6 w-full py-3 bg-slate-900 text-white rounded-xl text-xs font-bold uppercase tracking-widest transition-all active:scale-[0.98] hover:bg-slate-800 hover:shadow-lg">
             View Full Profile
-          </button>
+          </button> */}
         </div>
       </div>
     ))}

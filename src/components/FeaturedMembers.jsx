@@ -92,7 +92,7 @@ export default function FeaturedMembers() {
         <div className="relative bg-white/50 rounded-[2.2rem] p-6 h-full border border-white/50 flex flex-col items-center">
           
           
-          <div className="relative mb-6">
+          <div className="relative mb-2">
             <div className={`absolute inset-0 rounded-full blur-md opacity-20 scale-110 ${member.isEmailVarified ? 'bg-emerald-500' : 'bg-orange-500'}`}></div>
             <img
               src={member.avatar?.url || "https://placehold.co/200x200"}
@@ -109,7 +109,7 @@ export default function FeaturedMembers() {
           </div>
 
           
-          <div className="text-center mb-6">
+          <div className="text-center mb-3">
             <h1 className="text-xl font-bold text-slate-800 capitalize tracking-tight group-hover:text-blue-600 transition-colors">
               {member.fullname}
             </h1>
@@ -119,7 +119,7 @@ export default function FeaturedMembers() {
           </div>
 
           
-          <div className="w-full grid grid-cols-2 gap-2 pt-3 border-t border-slate-100/80">
+          <div className="w-full grid grid-cols-2 gap-2 pt-2 border-t border-slate-100/80">
             <div className="flex flex-col">
               <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider">Age</span>
               <span className="text-sm font-semibold text-slate-700">{member.age} yrs</span>
