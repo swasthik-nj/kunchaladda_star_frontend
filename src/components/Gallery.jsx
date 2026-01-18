@@ -3,6 +3,7 @@ import axios from "axios";
 import { FiTrash2, FiUploadCloud } from "react-icons/fi";
 import Footer from "./Footer";
 import Nav from "./Nav";
+import Loader from "./Loader";
 
 const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
@@ -76,10 +77,10 @@ export default function Gallery() {
       return;
     }
 
+    setUploading(true);
+
     const cloudinary = window.cloudinary;
-    let uploadWidget;
-    
-    uploadWidget = cloudinary.createUploadWidget(
+    const uploadWidget = cloudinary.createUploadWidget(
       {
         cloudName: CLOUD_NAME,
         uploadPreset: UPLOAD_PRESET, 
@@ -90,11 +91,16 @@ export default function Gallery() {
         if (error) {
           console.error("Upload error:", error);
           setError("Upload failed. Please try again.");
+          setUploading(false);
+          return;
+        }
+
+        if (result && result.event === "close") {
+          setUploading(false);
           return;
         }
 
         if (result && result.event === "success") {
-          setUploading(true);
           try {
             const { secure_url, public_id, width, height } = result.info;
 
@@ -116,10 +122,10 @@ export default function Gallery() {
               }
             );
 
-            setImages([response.data.data.image, ...images]);
+            setImages((prev) => [response.data.data.image, ...prev]);
             setError("");
             
-            // Close/minimize the widget after successful upload
+
             setTimeout(() => {
               uploadWidget.close();
             }, 1000);
@@ -158,6 +164,7 @@ export default function Gallery() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
+      {uploading && <Loader />}
       <Nav />
       <div className="relative overflow-hidden pt-20">
         <div className="absolute inset-0 opacity-60 bg-[radial-gradient(circle_at_20%_20%,#1e3a8a_0,#0f172a_35%,transparent_55%)]" aria-hidden />
@@ -193,9 +200,7 @@ export default function Gallery() {
                 <FiUploadCloud size={18} />
                 {uploading ? "Uploading..." : "Add a photo"}
               </button>
-              <p className="text-xs text-indigo-100/80">
-                Tip: Best results with clear subjects and bright lighting. Cloudinary handles resizing automatically.
-              </p>
+              
               {error && (
                 <div className="text-sm text-rose-100 bg-rose-500/10 border border-rose-400/40 rounded-lg px-3 py-2">
                   {error}
@@ -207,7 +212,7 @@ export default function Gallery() {
       </div>
 
       <div className="w-full max-w-6xl mx-auto px-4 pb-12">
-        {/* Images Gallery */}
+
         {loading ? (
           <div className="text-center py-14">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-300"></div>

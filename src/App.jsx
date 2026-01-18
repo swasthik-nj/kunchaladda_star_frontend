@@ -1,28 +1,18 @@
-import { BrowserRouter, Route, Router, Routes } from 'react-router-dom'
-import { useState, useEffect, Suspense } from 'react'
-import Home from './Home'
-import Gallery from './components/Gallery'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Suspense, lazy } from 'react'
 import './App.css'
-import Members from './components/Members'
-import Register from './components/Register'
-import Login from './components/Login'
-import VerifyEmail from './components/VerifyEmail'
 import Loader from './components/Loader'
 
+const Home = lazy(() => import('./Home'))
+const Gallery = lazy(() => import('./components/Gallery'))
+const Members = lazy(() => import('./components/Members'))
+const Register = lazy(() => import('./components/Register'))
+const Login = lazy(() => import('./components/Login'))
+const VerifyEmail = lazy(() => import('./components/VerifyEmail'))
+
 function App() {
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 1500)
-
-    return () => clearTimeout(timer)
-  }, [])
-
   return (
-    <>
-      {isLoading && <Loader />}
+    <Suspense fallback={<Loader />}>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home/>}/>
@@ -33,7 +23,7 @@ function App() {
           <Route path='/verify-email' element={<VerifyEmail/>}/>
         </Routes>
       </BrowserRouter>
-    </>
+    </Suspense>
   )
 }
 
