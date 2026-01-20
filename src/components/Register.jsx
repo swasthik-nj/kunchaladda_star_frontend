@@ -35,13 +35,13 @@ export default function Register() {
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Validate file size (max 5MB)
+      
       if (file.size > 5 * 1024 * 1024) {
         setError("Image size must be less than 5MB");
         return;
       }
 
-      // Validate file type
+      
       if (!file.type.startsWith("image/")) {
         setError("Please upload a valid image file");
         return;
@@ -52,7 +52,7 @@ export default function Register() {
         profilePhoto: file,
       }));
 
-      // Create preview
+      
       const reader = new FileReader();
       reader.onloadend = () => {
         setPhotoPreview(reader.result);
@@ -143,10 +143,9 @@ export default function Register() {
         }
       );
 
-      // Store user data
+      
       localStorage.setItem("user", JSON.stringify(response.data.data.user));
 
-      // Show success message with email verification instructions
       const responseMessage = response.data.message || "";
       if (responseMessage.toLowerCase().includes('verify') || responseMessage.toLowerCase().includes('email')) {
         setSuccess("Registration successful! Please check your email inbox (and spam folder) for a verification link. You must verify your email before logging in.");
@@ -200,7 +199,7 @@ export default function Register() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-4 py-12">
       <div className="w-full max-w-2xl">
         <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-10">
-          {/* Header */}
+          
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-gray-800 mb-2">
               Create Account
@@ -208,7 +207,7 @@ export default function Register() {
             <p className="text-gray-500">Join our community today</p>
           </div>
 
-          {/* Error Message */}
+         
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
               <div className="flex items-center">
@@ -228,7 +227,7 @@ export default function Register() {
             </div>
           )}
 
-          {/* Success Message */}
+         
           {success && (
             <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
               <div className="flex items-start">
@@ -253,9 +252,9 @@ export default function Register() {
             </div>
           )}
 
-          {/* Form */}
+          
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Profile Photo Upload */}
+           
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Profile Photo <span className="text-red-500">*</span>
@@ -327,7 +326,7 @@ export default function Register() {
               </div>
             </div>
 
-            {/* Full Name */}
+          
             <div>
               <label
                 htmlFor="fullname"
@@ -347,7 +346,7 @@ export default function Register() {
               />
             </div>
 
-            {/* Email and Phone in Grid */}
+            
             <div className="grid md:grid-cols-2 gap-5">
               {/* Email */}
               <div>
