@@ -204,7 +204,7 @@ export default function Home() {
       </div>
 
       <div className="members h-full relative ">
-        <a href="/members">All members</a>
+        <a href="/members" className="bg-gray-700 px-3.5 py-1.5">All members</a>
         <FeaturedMembers />
       </div>
 
