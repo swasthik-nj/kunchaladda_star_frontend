@@ -9,7 +9,6 @@ export default function Nav() {
   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const navigate = useNavigate();
 
-  // Function to load user from localStorage
   const loadUserFromStorage = useCallback(() => {
     const userData = localStorage.getItem('user');
     if (userData) {
@@ -23,16 +22,14 @@ export default function Nav() {
   }, []);
 
   useEffect(() => {
-    // Load user on component mount
     console.log('🔍   Nav useEffect: Loading user from storage');
     loadUserFromStorage();
 
-    // Listen for storage changes (from other tabs)
     const handleStorageChange = (e) => {
       if (e.key === 'user' && e.newValue) {
         try {
           const updatedUser = JSON.parse(e.newValue);
-          console.log('📦 Storage event received:', updatedUser);
+          console.log(' Storage event received:', updatedUser);
           setUser(updatedUser);
         } catch (error) {
           console.error('Error parsing updated user data:', error);
@@ -42,7 +39,7 @@ export default function Nav() {
 
     window.addEventListener('storage', handleStorageChange);
     
-    // Also listen for custom event (for same-tab updates)
+
     const handleUserUpdate = (e) => {
       if (e.detail && e.detail.user) {
         console.log('👂 Custom userUpdated event received:', e.detail.user);
@@ -88,7 +85,7 @@ export default function Nav() {
 
   return (
     <>
-      <nav className='bg-gray-800/70 h-16 fixed top-0 left-0 right-0 text-white mx-3 mt-3 md:mx-8 md:mt-4 rounded-xl flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-20 md:h-20 lg:h-20 z-40'>
+      <nav className='bg-gray-800/95 h-14 fixed top-0 left-0 right-0 text-white mx-3 mt-3 md:mx-8 md:mt-4 rounded-xl flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-20 md:h-20 lg:h-20 z-40'>
         <div className='text-lg sm:text-xl md:text-xl lg:text-2xl font-semibold'>
           <h1>
             <span className='text-amber-700 text-2xl'>K</span>unchaladda
