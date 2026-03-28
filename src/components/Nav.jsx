@@ -80,7 +80,7 @@ export default function Nav() {
 
   return (
     <>
-      <nav className='bg-gray-800/95 h-14 fixed top-0 left-0 right-0 text-white mx-3 mt-3 md:mx-8 md:mt-4 rounded-xl flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-20 md:h-20 lg:h-20 z-40'>
+      <nav className='bg-gray-800/95 font-bold h-14 fixed top-0 left-0 right-0 text-white mx-3 mt-3 md:mx-8 md:mt-4 rounded-xl flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-20 md:h-20 lg:h-20 z-40'>
         <div className='text-lg sm:text-xl md:text-xl lg:text-2xl font-semibold'>
           <h1>
             <span className='text-amber-700 text-2xl'>K</span>unchaladda
