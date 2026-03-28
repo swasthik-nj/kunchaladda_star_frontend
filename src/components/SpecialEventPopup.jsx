@@ -1,18 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function SpecialEventPopup() {
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    const today = new Date();
-    const todayDate = today.getDate(); // 1–31
-
-    const EVENT_DAY = 7; // Sakraman Pooja day
-
-    if (todayDate === EVENT_DAY) {
-      setShow(true);
-    }
-  }, []);
+  const EVENT_DAY = 7; // Sakraman Pooja day
+  const [show, setShow] = useState(() => new Date().getDate() === EVENT_DAY);
 
   if (!show) return null;
 

@@ -1,30 +1,25 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProfilePopup from './ProfilePopup';
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const userData = localStorage.getItem('user');
+    if (!userData) return null;
+
+    try {
+      return JSON.parse(userData);
+    } catch (error) {
+      console.error('Error parsing user data:', error);
+      return null;
+    }
+  });
   const [showDropdown, setShowDropdown] = useState(false);
   const [showProfilePopup, setShowProfilePopup] = useState(false);
   const navigate = useNavigate();
 
-  const loadUserFromStorage = useCallback(() => {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      try {
-        const parsedUser = JSON.parse(userData);
-        setUser(parsedUser);
-      } catch (error) {
-        console.error('Error parsing user data:', error);
-      }
-    }
-  }, []);
-
   useEffect(() => {
-    console.log('🔍   Nav useEffect: Loading user from storage');
-    loadUserFromStorage();
-
     const handleStorageChange = (e) => {
       if (e.key === 'user' && e.newValue) {
         try {
@@ -128,7 +123,6 @@ export default function Nav() {
                   className='flex items-center gap-2 hover:opacity-80 transition'
                 >
                   <img
-                    key={`${user?.avatar?.url}-${Date.now()}`}
                     src={typeof user.avatar === 'string' ? user.avatar : (user.avatar?.url || 'https://placehold.co/40x40')}
                     alt={user.fullname}
                     onError={(e) => {
@@ -247,7 +241,6 @@ export default function Nav() {
               <>
                 <div className='px-4 py-3 flex items-center gap-3'>
                   <img
-                    key={`mobile-${user?.avatar?.url}-${Date.now()}`}
                     src={typeof user.avatar === 'string' ? user.avatar : (user.avatar?.url || 'https://placehold.co/40x40')}
                     alt={user.fullname}
                     onError={(e) => {
