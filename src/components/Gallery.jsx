@@ -218,9 +218,9 @@ export default function Gallery() {
               </p>
             </div>
 
-            <div className="bg-gray-100 border border-slate-200 backdrop-blur-lg rounded-2xl px-6 py-5 flex flex-col gap-3 shadow-xl">
+            <div className="bg-orange-100 border border-slate-200 backdrop-blur-lg rounded-2xl px-6 py-5 flex flex-col gap-3 shadow-xl">
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-fuchsia-500 flex items-center justify-center shadow-lg">
+                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-black to-fuchsia-500 flex items-center justify-center shadow-lg">
                   <FiUploadCloud size={18} className="text-white" />
                 </div>
                 <div>
@@ -231,7 +231,7 @@ export default function Gallery() {
               <button
                 onClick={handleUploadClick}
                 disabled={uploading}
-                className="w-full py-3 px-4 bg-gradient-to-r from-indigo-500 via-blue-600 to-cyan-400 hover:from-indigo-400 hover:to-cyan-300 disabled:from-slate-600 disabled:to-slate-700 text-white font-semibold rounded-xl transition duration-200 shadow-lg shadow-indigo-900/30 flex items-center justify-center gap-2"
+                className="w-full py-3 px-4 bg-gradient-to-r from-black via-blue-600 to-cyan-400 hover:from-indigo-400 hover:to-black disabled:from-slate-600 disabled:to-slate-700 text-white font-semibold rounded-xl transition duration-200 shadow-lg shadow-indigo-900/30 flex items-center justify-center gap-2"
               >
                 <FiUploadCloud size={18} />
                 {uploading ? "Uploading..." : "Add a photo"}
