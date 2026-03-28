@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /login
+Disallow: /register
+Disallow: /verify-email
 
 Sitemap: https://kunchaladda-star-frontend.vercel.app/sitemap.xml

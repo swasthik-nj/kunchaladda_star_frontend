@@ -108,7 +108,7 @@ export default function Nav() {
             <a href='#about' className='px-4 py-3 lg:mx-4 lg:py-0 hover:text-yellow-400 lg:text-lg transition duration-300'>
               About
             </a>
-            <a href='/gallary' className='px-4 py-3 lg:mx-4 lg:py-0 hover:text-yellow-400 lg:text-lg transition duration-300'>
+            <a href='/gallery' className='px-4 py-3 lg:mx-4 lg:py-0 hover:text-yellow-400 lg:text-lg transition duration-300'>
               Gallery
             </a>
             <a href='/events' className='px-4 py-3 lg:mx-4 lg:py-0 hover:text-yellow-400 lg:text-lg transition duration-300'>
@@ -231,7 +231,7 @@ export default function Nav() {
               About
             </a>
             <a
-              href='/gallary'
+              href='/gallery'
               className='text-white hover:text-yellow-400 hover:bg-gray-700 px-4 py-3 rounded-md text-base font-medium transition duration-300'
               onClick={() => setIsOpen(false)}
             >

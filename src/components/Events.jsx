@@ -46,11 +46,18 @@ export default function Events() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900">
+    <div className="fixed inset-0 z-0 overflow-y-auto bg-slate-50"
+        style={{
+          backgroundImage:
+            "url('https://i.pinimg.com/236x/e8/7a/ee/e87aee069ed2f80d932cea4f17d669e0.jpg')",
+          backgroundRepeat: "repeat",
+          backgroundSize: "220px 220px",
+          backgroundPosition: "top left",
+        }}>
       <Nav />
 
       <main className="max-w-7xl mx-auto px-4 pt-28 pb-14 space-y-10"id="about">
-        <header className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+        <header className="bg-orange-100/40 border border-slate-200 rounded-2xl p-6 shadow-sm">
           <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Events</p>
           <h1 className="text-3xl md:text-4xl font-bold mt-2">Family Events</h1>
           <p className="text-slate-600 mt-2">Main events and newly added events from admin are listed here.</p>
@@ -60,7 +67,7 @@ export default function Events() {
           <h2 className="text-2xl font-semibold">Main Events</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {mainEvents.map((event) => (
-              <article key={event.id} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+              <article key={event.id} className="bg-orange-100/40 border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
                 <img src={event.image} alt={event.title} className="w-full h-56 object-cover" />
                 <div className="p-5">
                   <h3 className="text-xl font-semibold">{event.title}</h3>
@@ -75,11 +82,11 @@ export default function Events() {
           <h2 className="text-2xl font-semibold">Admin Added Events</h2>
 
           {loading ? (
-            <div className="bg-white border border-slate-200 rounded-2xl p-6 text-slate-600">Loading events...</div>
+            <div className="bg-orange-100/40 border border-slate-200 rounded-2xl p-6 text-slate-600">Loading events...</div>
           ) : error ? (
             <div className="bg-rose-100 border border-rose-300 rounded-2xl p-6 text-rose-700">{error}</div>
           ) : events.length === 0 ? (
-            <div className="bg-white border border-slate-200 rounded-2xl p-6 text-slate-600">No admin events added yet.</div>
+            <div className="bg-orange-100/40 border border-slate-200 rounded-2xl p-6 text-slate-600">No admin events added yet.</div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {events.map((event) => (
