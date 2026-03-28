@@ -111,6 +111,14 @@ export default function Nav() {
             <a href='/gallary' className='px-4 py-3 lg:mx-4 lg:py-0 hover:text-yellow-400 lg:text-lg transition duration-300'>
               Gallery
             </a>
+            <a href='/events' className='px-4 py-3 lg:mx-4 lg:py-0 hover:text-yellow-400 lg:text-lg transition duration-300'>
+              Events
+            </a>
+            {user?.isAdmin && (
+              <a href='/admin' className='px-4 py-3 lg:mx-4 lg:py-0 hover:text-yellow-400 lg:text-lg transition duration-300'>
+                Admin
+              </a>
+            )}
             <a href='#footer' className='px-4 py-3 lg:mx-4 lg:py-0 hover:text-yellow-400 lg:text-lg transition duration-300'>
               Contact
             </a>
@@ -229,6 +237,22 @@ export default function Nav() {
             >
               Gallery
             </a>
+            <a
+              href='/events'
+              className='text-white hover:text-yellow-400 hover:bg-gray-700 px-4 py-3 rounded-md text-base font-medium transition duration-300'
+              onClick={() => setIsOpen(false)}
+            >
+              Events
+            </a>
+            {user?.isAdmin && (
+              <a
+                href='/admin'
+                className='text-white hover:text-yellow-400 hover:bg-gray-700 px-4 py-3 rounded-md text-base font-medium transition duration-300'
+                onClick={() => setIsOpen(false)}
+              >
+                Admin
+              </a>
+            )}
             <a
               href='#footer'
               className='text-white hover:text-yellow-400 hover:bg-gray-700 px-4 py-3 rounded-md text-base font-medium transition duration-300'

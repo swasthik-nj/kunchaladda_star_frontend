@@ -239,7 +239,7 @@ export default function Home() {
       </div>
 
       <div className="members h-full relative bg-gray-400/40 py-16 md:py-15">
-        <a href="/members" className="w-full py-3 px-4 mx-17 bg-gradient-to-r from-black via-blue-600 to-cyan-400 hover:from-indigo-400 hover:to-black disabled:from-slate-600 disabled:to-slate-700 text-white font-semibold rounded-xl transition duration-200  fit-content">All members</a>
+        <a href="/members" className="w-full py-3 px-4 mx-17 bg-gradient-to-r from-black via-blue-600 to-cyan-400 hover:from-indigo-400 hover:to-black disabled:from-slate-600 disabled:to-slate-700 text-white font-semibold rounded-xl transition duration-200  fit-content">See All members</a>
         <FeaturedMembers />
       </div>
 

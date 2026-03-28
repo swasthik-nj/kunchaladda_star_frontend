@@ -6,6 +6,8 @@ import Loader from './components/Loader'
 const Home = lazy(() => import('./Home'))
 const Gallery = lazy(() => import('./components/Gallery'))
 const Members = lazy(() => import('./components/Members'))
+const Adminnj = lazy(() => import('./components/Adminnj'))
+const Events = lazy(() => import('./components/Events'))
 const Register = lazy(() => import('./components/Register'))
 const Login = lazy(() => import('./components/Login'))
 const VerifyEmail = lazy(() => import('./components/VerifyEmail'))
@@ -18,6 +20,8 @@ function App() {
           <Route path='/' element={<Home/>}/>
           <Route path='/gallary' element={<Gallery/>}/>
           <Route path='/members' element={<Members/>}/>
+          <Route path='/events' element={<Events/>}/>
+          <Route path='/admin' element={<Adminnj/>}/>
           <Route path='/register' element={<Register/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/verify-email' element={<VerifyEmail/>}/>
