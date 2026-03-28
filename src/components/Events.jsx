@@ -10,7 +10,7 @@ const mainEvents = [
     description:
       "A sacred monthly pooja in honor of Swami Koragajja. Family members offer Harake and seek blessings.",
     image:
-      "https://images.unsplash.com/photo-1605649487212-47bdab064df7?q=80&w=1200&auto=format&fit=crop",
+      "./koragajja.jpeg",
   },
   {
     id: "main-2",
@@ -20,6 +20,7 @@ const mainEvents = [
     image:
       "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop",
   },
+
 ];
 
 export default function Events() {
@@ -63,12 +64,12 @@ export default function Events() {
           <p className="text-slate-600 mt-2">Main events and newly added events from admin are listed here.</p>
         </header>
 
-        <section className="space-y-4" >
+        <section className="space-y-4 max-w-4xl flex flex-col justify-center m-auto " >
           <h2 className="text-2xl font-semibold">Main Events</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {mainEvents.map((event) => (
               <article key={event.id} className="bg-orange-100/40 border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
-                <img src={event.image} alt={event.title} className="w-full h-56 object-cover" />
+                <img src={event.image} alt={event.title} className="w-full h-70 object-cover" />
                 <div className="p-5">
                   <h3 className="text-xl font-semibold">{event.title}</h3>
                   <p className="text-slate-600 mt-2">{event.description}</p>

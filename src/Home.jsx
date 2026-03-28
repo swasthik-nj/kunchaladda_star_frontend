@@ -128,7 +128,7 @@ export default function Home() {
           <div id="events" className="mt-12 grid gap-6 lg:grid-cols-2">
             <article className="group rounded-2xl overflow-hidden border border-white/10 bg-slate-900/70 hover:border-amber-300/40 transition-colors duration-300">
               <img
-                src="https://images.unsplash.com/photo-1605649487212-47bdab064df7?q=80&w=1200&auto=format&fit=crop"
+                src="./koragajja.jpeg"
                 alt="Sakraman Pooja"
                 className="h-56 w-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
