@@ -170,7 +170,7 @@ export default function Home() {
           <div class="relative grid grid-cols-30 grid-rows-30 h-[300px] md:h-[550px]">
             <div class="col-start-20 col-end-31 row-start-1 row-end-11">
               <img
-                src="https://images.unsplash.com/photo-1768311172651-9f0a3a1d4a22?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw1fHx8ZW58MHx8fHx8"
+                src="/ajja.jpeg"
                 alt="Interior"
                 class="w-full h-full object-cover rounded-2xl shadow-sm"
               />
@@ -178,8 +178,8 @@ export default function Home() {
 
             <div class="col-start-1 col-end-19 row-start-1 row-end-25">
               <img
-                src="https://images.unsplash.com/photo-1768311172651-9f0a3a1d4a22?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw1fHx8ZW58MHx8fHx8"
-                alt="Sofa"
+                src="/stana.jpeg"
+                alt="stana"
                 class="w-full h-full object-cover rounded-tl-[5rem] rounded-bl-2xl rounded-tr-[5rem] rounded-br-2xl"
               />
             </div>
@@ -187,7 +187,7 @@ export default function Home() {
             <div class="col-start-15 col-end-31 row-start-12 row-end-31 z-10">
               <div class="w-full h-full bg-[#a3c2d6] rounded-[3rem]  overflow-hidden shadow-2xl flex items-center justify-center">
                 <img
-                  src="https://images.unsplash.com/photo-1768311172651-9f0a3a1d4a22?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw1fHx8ZW58MHx8fHx8"
+                  src="./koragajja.jpeg"
                   alt="Stool"
                   class="w-full h-full object-cover"
                 />
@@ -195,12 +195,12 @@ export default function Home() {
             </div>
           </div>
 
-          <div class="flex flex-col gap-6 z-2">
+          <div class="flex flex-col gap-6 z-2 text-black">
             <h2 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
               Experience the Serene Soul of Kunchaladda
             </h2>
 
-            <p class="text-gray-500 text-lg leading-relaxed">
+            <p class=" text-lg leading-relaxed">
               Nestled in the lush heart of coastal Karnataka, Kunchaladda is a
               testament to nature's untouched beauty. From the rhythmic whispers
               of the Western Ghats to the deep-rooted traditions of the Tulunadu
@@ -210,25 +210,25 @@ export default function Home() {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
               <div class="flex items-start gap-3">
                 <span class="mt-1.5 w-2.5 h-2.5 rounded-full border-2 border-green-500 shrink-0"></span>
-                <span class="text-gray-600">
+                <span class="">
                   Emerald canopy of native evergreen forests
                 </span>
               </div>
               <div class="flex items-start gap-3">
                 <span class="mt-1.5 w-2.5 h-2.5 rounded-full border-2 border-green-500 shrink-0"></span>
-                <span class="text-gray-600">
+                <span class="">
                   Traditional "Daivaneleyas" and spiritual heritage
                 </span>
               </div>
               <div class="flex items-start gap-3">
                 <span class="mt-1.5 w-2.5 h-2.5 rounded-full border-2 border-green-500 shrink-0"></span>
-                <span class="text-gray-600">
+                <span class="">
                   Scenic views of the rolling Kumaradhara valley
                 </span>
               </div>
               <div class="flex items-start gap-3">
                 <span class="mt-1.5 w-2.5 h-2.5 rounded-full border-2 border-green-500 shrink-0"></span>
-                <span class="text-gray-600">
+                <span class="">
                   Cherished spaces for multi-generational gatherings and cultural storytelling
                 </span>
               </div>
