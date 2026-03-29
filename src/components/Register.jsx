@@ -16,6 +16,7 @@ export default function Register() {
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -83,13 +84,22 @@ export default function Register() {
   };
 
   const validateForm = () => {
-    if (!formData.fullname || !formData.email || !formData.password) {
-      setError("Please fill in all required fields");
+    if (
+      !formData.fullname ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword ||
+      !formData.dob ||
+      !formData.profilePhoto
+    ) {
+      const detailsMessage = "Please fill all the details.";
+      setError(detailsMessage);
+      window.alert(detailsMessage);
       return false;
     }
 
-    if (!formData.profilePhoto) {
-      setError("Please upload a profile photo");
+    if (!termsAccepted) {
+      setError("Please accept Terms and Conditions.");
       return false;
     }
 
@@ -148,13 +158,16 @@ export default function Register() {
 
       const responseMessage = response.data.message || "";
       if (responseMessage.toLowerCase().includes('verify') || responseMessage.toLowerCase().includes('email')) {
-        setSuccess("Registration successful! Please check your email inbox (and spam folder) for a verification link. You must verify your email before logging in.");
+        const verificationMessage = "Registration successful! Verification link sent to your email. Please verify before login.";
+        setSuccess(verificationMessage);
+        window.alert(verificationMessage);
         // Don't auto-redirect, let user read the message
         setTimeout(() => {
           navigate("/login");
         }, 8000); // 8 seconds to read the message
       } else {
         setSuccess(responseMessage);
+        window.alert(responseMessage || "Registration successful.");
         setTimeout(() => {
           navigate("/login");
         }, 2000);
@@ -253,7 +266,7 @@ export default function Register() {
           )}
 
           
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} noValidate className="space-y-5">
            
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -321,7 +334,6 @@ export default function Register() {
                   accept="image/*"
                   onChange={handlePhotoChange}
                   className="hidden"
-                  required
                 />
               </div>
             </div>
@@ -340,7 +352,6 @@ export default function Register() {
                 name="fullname"
                 value={formData.fullname}
                 onChange={handleChange}
-                required
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
                 placeholder="Enter your full name"
               />
@@ -362,7 +373,6 @@ export default function Register() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
                   placeholder="your.email@example.com"
                 />
@@ -404,7 +414,6 @@ export default function Register() {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                required
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
                 placeholder="Create a strong password"
               />
@@ -451,7 +460,6 @@ export default function Register() {
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                required
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
                 placeholder="Confirm your password"
               />
@@ -462,7 +470,8 @@ export default function Register() {
               <input
                 type="checkbox"
                 id="terms"
-                required
+                checked={termsAccepted}
+                onChange={(e) => setTermsAccepted(e.target.checked)}
                 className="w-4 h-4 text-indigo-600 rounded mt-1"
               />
               <label htmlFor="terms" className="ml-2 text-sm text-gray-600">
