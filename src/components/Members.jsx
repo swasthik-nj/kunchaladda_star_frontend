@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import Nav from "./Nav";
 
 export default function Members() {
   const [members, setMembers] = useState([]);
@@ -76,14 +77,15 @@ export default function Members() {
   }
 
   return (
-    <div className="fixed inset-0 z-0 overflow-y-auto bg-slate-50 px-6 py-12"
-        style={{
-          backgroundImage:
-            "url('https://i.pinimg.com/236x/e8/7a/ee/e87aee069ed2f80d932cea4f17d669e0.jpg')",
-          backgroundRepeat: "repeat",
-          backgroundSize: "220px 220px",
-          backgroundPosition: "top left",
-        }}>
+    <div className="fixed inset-0 z-0 overflow-y-auto bg-slate-50 px-6 py-28"
+    style={{
+      backgroundImage:
+      "url('https://i.pinimg.com/236x/e8/7a/ee/e87aee069ed2f80d932cea4f17d669e0.jpg')",
+      backgroundRepeat: "repeat",
+      backgroundSize: "220px 220px",
+      backgroundPosition: "top left",
+    }}>
+          <Nav />
   <div className="max-w-7xl mx-auto mb-10">
     <h2 className="text-3xl font-bold text-slate-900 tracking-tight">Community Directory</h2>
     <p className="text-blue-900 mt-2">Connecting with {members.length} registered members.</p>
