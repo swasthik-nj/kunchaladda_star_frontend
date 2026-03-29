@@ -152,13 +152,7 @@ export default function Nav() {
                     >
                       Profile
                     </button>
-                    <a
-                      href='/settings'
-                      className='block px-4 py-2 text-gray-800 hover:bg-gray-100'
-                      onClick={() => setShowDropdown(false)}
-                    >
-                      Settings
-                    </a>
+                    
                     <hr className='my-1' />
                     <button
                       onClick={handleLogout}
@@ -283,13 +277,7 @@ export default function Nav() {
                 >
                   Profile
                 </button>
-                <a
-                  href='/settings'
-                  className='text-white hover:text-yellow-400 hover:bg-gray-700 px-4 py-3 rounded-md text-base font-medium transition duration-300'
-                  onClick={() => setIsOpen(false)}
-                >
-                  Settings
-                </a>
+                
                 <button
                   onClick={handleLogout}
                   className='text-red-400 hover:text-red-500 hover:bg-gray-700 px-4 py-3 rounded-md text-base font-medium transition duration-300 text-left w-full'
