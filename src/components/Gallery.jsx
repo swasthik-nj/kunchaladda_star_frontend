@@ -14,11 +14,27 @@ export default function Gallery() {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
   const [widgetReady, setWidgetReady] = useState(false);
+  const [currentUserId, setCurrentUserId] = useState("");
 
   useEffect(() => {
     fetchAllImages();
     initCloudinaryWidget();
+
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        setCurrentUserId(parsedUser?._id || "");
+      } catch (parseError) {
+        console.error("Error parsing user data:", parseError);
+      }
+    }
   }, []);
+
+  const isCurrentUsersImage = (image) => {
+    const uploaderId = image?.uploadedBy?._id;
+    return Boolean(currentUserId && uploaderId && String(uploaderId) === String(currentUserId));
+  };
 
   const initCloudinaryWidget = () => {
     if (window.cloudinary) {
@@ -304,13 +320,15 @@ export default function Gallery() {
                       >
                         <FiDownload size={16} />
                       </button>
-                      <button
-                        onClick={() => handleDeleteImage(image._id)}
-                        className="bg-rose-500/80 hover:bg-rose-500 text-white p-2 rounded-full shadow-lg shadow-rose-900/40 transition"
-                        title="Delete image"
-                      >
-                        <FiTrash2 size={16} />
-                      </button>
+                      {isCurrentUsersImage(image) && (
+                        <button
+                          onClick={() => handleDeleteImage(image._id)}
+                          className="bg-rose-500/80 hover:bg-rose-500 text-white p-2 rounded-full shadow-lg shadow-rose-900/40 transition"
+                          title="Delete image"
+                        >
+                          <FiTrash2 size={16} />
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
