@@ -27,6 +27,7 @@ export default function Events() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -91,7 +92,11 @@ export default function Events() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {events.map((event) => (
-                <article key={event._id} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                <article
+                  key={event._id}
+                  className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm cursor-pointer"
+                  onClick={() => setSelectedEvent(event)}
+                >
                   {event.eventImage ? (
                     <img src={event.eventImage} alt={event.title} className="w-full h-56 object-cover" />
                   ) : (
@@ -110,6 +115,47 @@ export default function Events() {
           )}
         </section>
       </main>
+
+      {selectedEvent && (
+        <div
+          className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+          onClick={() => setSelectedEvent(null)}
+        >
+          <div
+            className="bg-white rounded-2xl w-full max-w-3xl overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200">
+              <h3 className="text-lg md:text-xl font-semibold">{selectedEvent.title}</h3>
+              <button
+                type="button"
+                onClick={() => setSelectedEvent(null)}
+                className="text-slate-500 hover:text-slate-800 text-2xl leading-none"
+                aria-label="Close event popup"
+              >
+                ×
+              </button>
+            </div>
+
+            {selectedEvent.eventImage ? (
+              <img
+                src={selectedEvent.eventImage}
+                alt={selectedEvent.title}
+                className="w-full max-h-[65vh] object-cover"
+              />
+            ) : (
+              <div className="w-full h-72 bg-slate-200 flex items-center justify-center text-slate-500">No image</div>
+            )}
+
+            <div className="px-5 py-4 space-y-2">
+              <p className="text-slate-600">{selectedEvent.description || "No description"}</p>
+              <p className="text-sm text-slate-500">
+                {new Date(selectedEvent.eventDate).toLocaleDateString()} | by {selectedEvent.createdBy?.fullname || "Admin"}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>
