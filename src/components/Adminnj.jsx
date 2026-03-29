@@ -10,10 +10,10 @@ export default function Adminnj() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState("");
 	const [submitting, setSubmitting] = useState(false);
+	const [eventImageFile, setEventImageFile] = useState(null);
 	const [form, setForm] = useState({
 		title: "",
 		description: "",
-		eventImage: "",
 		eventDate: "",
 	});
 
@@ -66,7 +66,16 @@ export default function Adminnj() {
 
 		try {
 			setSubmitting(true);
-			const response = await api.post("/events", form);
+			const payload = new FormData();
+			payload.append("title", form.title);
+			payload.append("description", form.description);
+			payload.append("eventDate", form.eventDate);
+
+			if (eventImageFile) {
+				payload.append("eventImage", eventImageFile);
+			}
+
+			const response = await api.post("/events", payload);
 			const createdEvent = response.data?.data?.event;
 
 			if (createdEvent) {
@@ -74,7 +83,8 @@ export default function Adminnj() {
 				setStats((prev) => ({ ...prev, totalEvents: prev.totalEvents + 1 }));
 			}
 
-			setForm({ title: "", description: "", eventImage: "", eventDate: "" });
+			setForm({ title: "", description: "", eventDate: "" });
+			setEventImageFile(null);
 			setError("");
 		} catch (err) {
 			console.error("Create event error:", err);
@@ -146,13 +156,18 @@ export default function Adminnj() {
 										className="w-full border border-slate-300 rounded-lg px-3 py-2"
 										placeholder="Event description"
 									/>
+									<label className="block text-sm text-slate-600">
+										Upload image from device (optional)
+									</label>
 									<input
-										type="url"
-										value={form.eventImage}
-										onChange={(e) => setForm((prev) => ({ ...prev, eventImage: e.target.value }))}
-										className="w-full border border-slate-300 rounded-lg px-3 py-2"
-										placeholder="Event image URL (optional)"
+										type="file"
+										accept="image/*"
+										onChange={(e) => setEventImageFile(e.target.files?.[0] || null)}
+										className="w-full border border-slate-300 rounded-lg px-3 py-2 bg-white"
 									/>
+									{eventImageFile && (
+										<p className="text-xs text-slate-500">Selected: {eventImageFile.name}</p>
+									)}
 									<button
 										type="submit"
 										disabled={submitting}
