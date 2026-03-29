@@ -138,11 +138,13 @@ export default function Events() {
             </div>
 
             {selectedEvent.eventImage ? (
-              <img
-                src={selectedEvent.eventImage}
-                alt={selectedEvent.title}
-                className="w-full max-h-[65vh] object-cover"
-              />
+              <div className="w-full max-h-[75vh] bg-slate-950/90 p-3 flex items-center justify-center">
+                <img
+                  src={selectedEvent.eventImage}
+                  alt={selectedEvent.title}
+                  className="w-full max-h-[72vh] object-contain"
+                />
+              </div>
             ) : (
               <div className="w-full h-72 bg-slate-200 flex items-center justify-center text-slate-500">No image</div>
             )}
